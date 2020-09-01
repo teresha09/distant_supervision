@@ -199,52 +199,44 @@ class ABSADatesetReader:
                 'test': './datasets/psytar/folds/' + str(fold_num) + '/test.txt'
             },
             'psytar-cadec':{
-                'train': './datasets/psytar-cadec/train.txt',
-                'test': './datasets/psytar-cadec/test.txt'
+                'train': './datasets_correct/psytar-cadec/train.txt',
+                'test': './datasets_correct/psytar-cadec/test.txt'
             },
             'psytar-aska_full':{
                 'train': './datasets_correct/psytar-aska_full/train.txt',
                 'test': './datasets_correct/psytar-aska_full/test.txt'
             },
             'psytar_aska-cadec': {
-                'train': './datasets/psytar_aska-cadec/train.txt',
-                'test': './datasets/psytar_aska-cadec/test.txt'
+                'train': './datasets_correct/psytar_aska_full-cadec/train.txt',
+                'test': './datasets_correct/psytar_aska_full-cadec/test.txt'
             },
             'cadec-psytar': {
-                'train': './datasets/cadec-psytar/train.txt',
-                'test': './datasets/cadec-psytar/test.txt'
-            },
-            'psytar-aska_1':{
-                'train': './datasets/psytar-aska_1/train.txt',
-                'test': './datasets/psytar-aska_1/test.txt'
+                'train': './datasets_correct/cadec-psytar/train.txt',
+                'test': './datasets_correct/cadec-psytar/test.txt'
             },
             'cadec-aska': {
-                'train': './datasets/cadec_aska/train.txt',
-                'test': './datasets/cadec_aska/test.txt'
-            },
-            'cadec_aska-psytar': {
-                'train': './datasets/cadec_aska-psytar/train.txt',
-                'test': './datasets/cadec_aska-psytar/test.txt'
+                'train': './datasets_correct/cadec-aska_full/train.txt',
+                'test': './datasets/cadec-aska_full/test.txt'
             },
             'psytar_cadec_drugs-cadec': {
                 'train': './datasets_correct/psytar_aska_cadec_drugs-cadec/train.txt',
                 'test': './datasets_correct/psytar_aska_cadec_drugs-cadec/test.txt'
             },
             'cadec_psytar_drugs-psytar': {
-                'train': './datasets/cadec_psytar_drugs-psytar/train.txt',
-                'test': './datasets/cadec_psytar_drugs-psytar/test.txt'
+                'train': './datasets_correct/cadec_aska_psytar_drugs-psytar/train.txt',
+                'test': './datasets_correct/cadec_aska_psytar_drugs-psytar/test.txt'
             },
             'psytar_webmd(cadec)-cadec': {
-                'train': './datasets/psytar_webmd(cadec)-cadec/train.txt',
-                'test': './datasets/psytar_webmd(cadec)-cadec/test.txt'
+                'train': './datasets_correct/psytar_webmd(cadec)-cadec/train.txt',
+                'test': './datasets_correct/psytar_webmd(cadec)-cadec/test.txt'
             },
             'cadec_webmd(psytar)-psytar': {
-                'train': './datasets/cadec_webmd(psytar)-psytar/train.txt',
-                'test': './datasets/cadec_webmd(psytar)-psytar/test.txt'
+                'train': './datasets_correct/cadec_webmd(psytar)-psytar/train.txt',
+                'test': './datasets_correct/cadec_webmd(psytar)-psytar/test.txt'
             },
             'psytar_aska(drugbank)_cadec': {
-                'train': './datasets/psytar_aska(drugbank)_cadec/train.txt',
-                'test': './datasets/psytar_aska(drugbank)_cadec/test.txt'
+                'train': './datasets/psytar_drugbank-cadec/train.txt',
+                'test': './datasets/psytar_drugbank-cadec/test.txt'
             }
 
         }
