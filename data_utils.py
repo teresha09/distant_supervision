@@ -216,7 +216,7 @@ class ABSADatesetReader:
             },
             'cadec-aska': {
                 'train': './datasets_correct/cadec-aska_full/train.txt',
-                'test': './datasets/cadec-aska_full/test.txt'
+                'test': './datasets_correct/cadec-aska_full/test.txt'
             },
             'psytar_cadec_drugs-cadec': {
                 'train': './datasets_correct/psytar_aska_cadec_drugs-cadec/train.txt',

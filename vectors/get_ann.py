@@ -2,7 +2,7 @@ from nltk.tokenize import wordpunct_tokenize, sent_tokenize
 import pymorphy2
 from gensim.utils import tokenize
 from gensim import utils
-from gensim.models import FastText
+from gensim.models import FastText, Word2Vec
 from gensim.test.utils import get_tmpfile
 
 morph = pymorphy2.MorphAnalyzer()
@@ -24,11 +24,8 @@ def pubmed():
     return res
 
 
-def microbiology(flag=False):
-    if flag:
-        f = open("data/articles.txt")
-    else:
-        f = open('data/microbiology.json')
+def microbiology(filename):
+    f = open(filename)
     res = []
     names = []
     for line in f:
@@ -84,37 +81,40 @@ def stat(m,p,c):
     print(len(set(all_tokens)))
 
 class MyIter(object):
-    def __init__(self, pubmed, micbio, cl):
+    def __init__(self, pubmed):
         self.pubmed = pubmed
-        self.micbio = micbio
-        self.cl = cl
+        # self.micbio = micbio
+        # self.cl = cl
+        # self.articles2 = articles2
 
 
     def __iter__(self):
         for sent in self.pubmed:
             yield sent
-        for sent in self.micbio:
-            yield sent
-        for sent in self.cl:
-            yield sent
+        # for sent in self.micbio:
+        #     yield sent
+        # for sent in self.cl:
+        #     yield sent
 
 
-mb = normalize(microbiology())
-norm_pm = normalize(pubmed())
-cyberl = normalize(microbiology())
+mb = normalize(microbiology("data/microbiology.json"))
+#norm_pm = normalize(pubmed())
+#cyberl = normalize(microbiology("data/articles.txt"))
+#a2 = normalize(microbiology("data/articles2.txt"))
 
 
-m = microbiology()
-p = pubmed()
-cl = microbiology(True)
-print(len(m))
-print(len(p))
-print(len(cl))
-stat(m,p,cl)
+#m = microbiology()
+#p = pubmed()
+#cl = microbiology(True)
 
-model4 = FastText(size=200, window=10, negative=5, sg=0, min_count=10)
-model4.build_vocab(sentences=MyIter(mb, norm_pm, cyberl))
+# print(len(m))
+# print(len(p))
+# print(len(cl))
+# stat(m,p,cl)
+
+path = get_tmpfile("word2vec.model")
+model4 = Word2Vec(sentences=MyIter(mb), size=100, window=5, min_count=1, workers=4)
+#model4.build_vocab(sentences=MyIter(mb, norm_pm, cyberl, a2))
 total_examples = model4.corpus_count
-model4.train(sentences=MyIter(mb, norm_pm, cyberl), total_examples=total_examples, epochs=5)
-fname = get_tmpfile('data/fasttext.model')
-model4.save(fname)
+model4.train(sentences=MyIter(mb), total_examples=total_examples, epochs=1)
+model4.save(path)

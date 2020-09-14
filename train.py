@@ -27,9 +27,7 @@ import torch.nn.functional as F
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # device = 'cpu'
 
-context_dict = {
-    'psytar-aska': 391
-}
+
 
 def output_errors(corp, model_name, test_data, pred_labels, gold_labels):
     output_dir = "output/" + corp + "/errors"
@@ -55,8 +53,10 @@ class Instructor:
         self.train_data_loader = DataLoader(dataset=absa_dataset.train_data, batch_size=opt.batch_size, shuffle=True)
         self.test_data_loader = DataLoader(dataset=absa_dataset.test_data, batch_size=len(absa_dataset.test_data), shuffle=False)
         self.test_data = absa_dataset.test_data
-
-        self.model = opt.model_class(absa_dataset.embedding_matrix, opt).to(device)
+        if opt.checkpoint_path != "":
+            self.model = torch.load(opt.checkpoint_path)
+        else:
+            self.model = opt.model_class(absa_dataset.embedding_matrix, opt).to(device)
         self.reset_parameters()
 
     def reset_parameters(self):
@@ -77,6 +77,7 @@ class Instructor:
         criterion = nn.CrossEntropyLoss()
         params = filter(lambda p: p.requires_grad, self.model.parameters())
         optimizer = self.opt.optimizer(params, lr=self.opt.learning_rate)
+
 
         max_test_acc = 0
         global_step = 0
@@ -127,6 +128,7 @@ class Instructor:
         gold, pred = [], []
         y_pred_pos = []
         y_pred_neg = []
+        torch.save(self.model, opt.save_path)
         with torch.no_grad():
             for t_batch, t_sample_batched in enumerate(self.test_data_loader):
                 t_inputs = [t_sample_batched[col].to(device) for col in self.opt.inputs_cols]
@@ -205,6 +207,8 @@ if __name__ == '__main__':
     parser.add_argument('--max_seq_len', default=80, type=int)
     parser.add_argument('--polarities_dim', default=2, type=int)
     parser.add_argument('--hops', default=3, type=int)
+    parser.add_argument("--checkpoint_path", default='', type=str)
+    parser.add_argument("--save_path", default='', type=str)
     opt = parser.parse_args()
 
     model_classes = {
