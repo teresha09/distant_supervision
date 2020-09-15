@@ -51,8 +51,7 @@ class Instructor:
 
         absa_dataset = ABSADatesetReader(dataset=opt.dataset, embed_dim=opt.embed_dim, max_seq_len=opt.max_seq_len, fold_num=opt.fold_num)
         self.train_data_loader = DataLoader(dataset=absa_dataset.train_data, batch_size=opt.batch_size, shuffle=True)
-        self.test_data_loader = DataLoader(dataset=absa_dataset.test_data, batch_size=len(absa_dataset.test_data), shuffle=False)
-        self.test_data = absa_dataset.test_data
+        self.test_data_loader = DataLoader(dataset=absa_dataset.test_data, batch_size=opt.batch_size, shuffle=False)
         if opt.checkpoint_path != "":
             self.model = torch.load(opt.checkpoint_path)
         else:

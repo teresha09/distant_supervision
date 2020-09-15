@@ -57,7 +57,7 @@ class DynamicLSTM(nn.Module):
         :return:
         """
         """sort"""
-        x_sort_idx = -x_len.cpu().numpy().argso
+        x_sort_idx = np.argsort(-x_len.cpu())
         x_unsort_idx = torch.LongTensor(np.argsort(x_sort_idx))
         x_len = x_len[x_sort_idx]
         x = x[torch.LongTensor(x_sort_idx)]
