@@ -237,12 +237,16 @@ class ABSADatesetReader:
             'psytar_aska(drugbank)_cadec': {
                 'train': './datasets/psytar_drugbank-cadec/train.txt',
                 'test': './datasets/psytar_drugbank-cadec/test.txt'
+            },
+            'full_text': {
+                'full': './datasets_correct/full_text/text.txt'
             }
 
         }
         text = ABSADatesetReader.__read_text__([self.fname[dataset]['train'],self.fname[dataset]['test']])
         tokenizer = Tokenizer(max_seq_len=max_seq_len)
-        tokenizer.fit_on_text(text.lower())
+        full_text = ABSADatesetReader.__read_text__([self.fname['full_text']['full']])
+        tokenizer.fit_on_text(full_text.lower())
         # tokenizer.fit_on_text(text)
         self.embedding_matrix = build_embedding_matrix(tokenizer.word2idx, embed_dim, dataset)
         self.train_data = ABSADataset(ABSADatesetReader.__read_data__(self.fname[dataset]['train'], tokenizer))
